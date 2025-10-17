@@ -1,15 +1,18 @@
 #include<stdio.h>
 #include<stdlib.h>
+#include<unistd.h>
 #include<string.h>
 #include<sys/socket.h>
 #include<arpa/inet.h>
+
+#define BUFFER_SIZE 1024 //keep a temporary place to store msgs
 
 int main(void)
 {
 
   int socket_desc;
   int client_sock; //waits at accept
-  
+  char buffer[BUFFER_SIZE] = {0};   
   //server keeps address of server & client in server_addr
   struct sockaddr_in server_addr, client_addr;
   
@@ -62,12 +65,16 @@ int main(void)
   printf("Client connected at IP: %s and port: %i\n", inet_ntoa(client_addr.sin_addr), ntohs(client_addr.sin_port));
   
   //wait at recieve
-  char client_message[2000] = "Hello i am server file, sending client msg";
-  char server_message[2000] = "Hello i am server file, sending server msg";
+  //read data from client and print it
+  //declare a signed variable for number of bytes to read
+  ssize_t valread;
+  while(valread = read(client_sock,buffer,BUFFER_SIZE)>0){
+  	printf("Client: %s",buffer);
+	memset(buffer,0,sizeof(buffer));
   
-  recv(client_sock, client_message, sizeof(client_message), 0);
-  send(client_sock, server_message, strlen(server_message), 0);
-  
+  }
+  close(socket_desc);
+  return 0;
 
 
 }
