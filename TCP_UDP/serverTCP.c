@@ -12,7 +12,8 @@ int main(void)
 
   int socket_desc;
   int client_sock; //waits at accept
-  char buffer[BUFFER_SIZE] = {0};   
+  char buffer[BUFFER_SIZE] = {0};
+  char req_buffer[BUFFER_SIZE] = {0};  
   //server keeps address of server & client in server_addr
   struct sockaddr_in server_addr, client_addr;
   
@@ -68,9 +69,21 @@ int main(void)
   //read data from client and print it
   //declare a signed variable for number of bytes to read
   ssize_t valread;
-  while(valread = read(client_sock,buffer,BUFFER_SIZE)>0){
+  ssize_t valwrite;
+
+ 
+  while(1){
+	char user_input[BUFFER_SIZE];
+	valread = read(client_sock, buffer, BUFFER_SIZE);
   	printf("Client: %s",buffer);
-	memset(buffer,0,sizeof(buffer));
+
+	memset(buffer, 0, sizeof(buffer));
+	printf("Server: ");
+	fgets(user_input,BUFFER_SIZE,stdin);
+	strcpy(buffer,user_input);
+	valwrite = write(socket_desc, buffer, BUFFER_SIZE);
+
+	
   
   }
   close(socket_desc);
