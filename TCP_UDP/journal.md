@@ -16,3 +16,10 @@
 // uplload image
 - WebSockets is the build in browser socket accessed through JS
 - Any native server or database cant communicate over websockets, hence, we need to provide a translator between them. Socket.io does that job here
+
+# How to establish a web socket connection between 2 devices?
+
+- So first, we'll either use TCP or UDP as the networking protocol. Why not HTTP? As said above its not useful for back-to-back communication
+
+// upload socket working image
+- refer to the TCP-UDP code now
