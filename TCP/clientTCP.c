@@ -31,18 +31,20 @@ int main(void)
 	ssize_t valread;
 	
 	while(1){
-		memset(buffer, 0, BUFFER_SIZE);
+		printf("Server: %s",buffer);
+	
+		valread = read(socket_desc,buffer,BUFFER_SIZE);
+		//printf("Server: %s",buffer);
+		//memset(buffer,0,BUFFER_SIZE);
 		char user_input[BUFFER_SIZE];
-		printf("Client: ");
+		printf("Your input: ");
 		fgets(user_input, BUFFER_SIZE, stdin);
 		strcpy(buffer, user_input);
 		valwrite = write(socket_desc,buffer,strlen(buffer));
 		if(strcmp(buffer, "quit")==0){
 			break;
 		}
-		memset(buffer,0,BUFFER_SIZE);
-		valread = read(socket_desc,buffer, BUFFER_SIZE);
-		printf("Server: %s", buffer);
+		//memset(buffer,0,BUFFER_SIZE);
 
 	}
 

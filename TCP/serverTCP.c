@@ -73,15 +73,16 @@ int main(void)
 
  
   while(1){
+	
 	char user_input[BUFFER_SIZE];
-	valread = read(client_sock, buffer, BUFFER_SIZE);
-  	printf("Client: %s",buffer);
-
-	memset(buffer, 0, sizeof(buffer));
 	printf("Server: ");
 	fgets(user_input,BUFFER_SIZE,stdin);
-	strcpy(buffer,user_input);
-	valwrite = write(socket_desc, buffer, BUFFER_SIZE);
+	valwrite = write(socket_desc,buffer,strlen(buffer));
+	//memset(buffer,0,sizeof(buffer));
+	//printf("Client's input %s",buffer);
+	//valread = read(client_sock, buffer, BUFFER_SIZE);
+
+	//memset(buffer, 0, sizeof(buffer));
 
 	
   
